@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>index</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <h1>我是标题</h1>
+  <p>我是段落</p>
+  <main>
+    <div class="content">
+      <p>余额：<span id="amount">&&&amount&&&</span></p>
+      <button id="btn">打钱</button>
+    </div>
+  </main>
+  <!-- <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script> -->
+  <script>
+    btn.addEventListener('click', () => {
+      //jQuery 的实现方法
+      /*
+        $.ajax({
+          url: "http://jack.com:8002/pay",
+          jsonp: "callback",
+          dataType: "jsonp",
+          success: function(response) {
+            console.log(response); // server response
+          }
+        })
+      */
+        let functionName = 'enoch'+ parseInt(Math.random()*10000000 ,10)
+        window[functionName] = function(){  // 每次请求之前搞出一个随机的函数
+            amount.innerText = amount.innerText - 0 - 1
+         } 
+        let script = document.createElement('script')
+        script.src = '/pay?callback=' + functionName
+         document.body.appendChild(script)
+         script.onload = function(e){
+           e.currentTarget.remove()
+         }
+         script.onerror = function(e){
+           alert('fail')
+           e.currentTarget.remove()
+         }
+    })
+  </script>
+  <script src="./main.js"></script>
+</body>
+
+</html>

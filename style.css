@@ -1,0 +1,21 @@
+body{
+  background:gray;
+  text-align:center;
+}
+h1{
+  color:red;
+}
+p{
+  color:blue;
+}
+main{
+  border:1px solid red;
+  display:flex;
+  justify-content:center;
+}
+main > .content{
+  width:200px;
+  height:200px;
+  border:1px solid blue;
+}
+
