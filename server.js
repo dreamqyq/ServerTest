@@ -30,8 +30,6 @@ if(!port){
   console.log("HTTP 路径为"+path);
   if(path === '/'){
     var string = fs.readFileSync('./index.html','utf-8')
-    var amount = fs.readFileSync('./db','utf-8')
-    string = string.replace('&&&amount&&&',amount)
     response.setHeader('Content-Type','text/html;charset=utf-8')
     response.write(string)
     response.end()
@@ -45,14 +43,18 @@ if(!port){
     response.setHeader('Content-Type','text/javascript;charset=utf-8')
     response.write(string)
     response.end()
-  }else if (path === '/pay'){
-    let amount = fs.readFileSync('./db', 'utf8')
-    amount -= 1
-    fs.writeFileSync('./db', amount)
-    let callbackName = query.callback
-    response.setHeader('Content-Type', 'application/javascript')
+  }else if(path ==='/xxx'){
+    response.setHeader('Content-Type','text/json;charset=utf-8')
+    response.setHeader('Access-Control-Allow-Origin','http://enoch.com:8001')
     response.write(`
-        ${callbackName}.call(undefined, 'success')
+      {
+        "note":{
+          "to":"Enoch",
+          "from":"Snow",
+          "heading":"Say Hi",
+          "body":"Hello Wrold"
+        }
+      }
     `)
     response.end()
   }else if(path === '/favicon.ico'){
@@ -62,6 +64,7 @@ if(!port){
   }else{
     response.setHeader('Content-Type','text/html;charset=utf-8')
     response.statusCode = 404
+    response.write('呜呜呜')
     response.end()
   }
   
