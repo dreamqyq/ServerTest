@@ -3,10 +3,11 @@ body{
   text-align:center;
 }
 h1{
-  color:red;
+  color:#fff;
 }
 p{
-  color:blue;
+  font-size:18px;
+  color:#fff;
 }
 main{
   border:1px solid red;

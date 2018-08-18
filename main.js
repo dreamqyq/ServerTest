@@ -1,6 +1,6 @@
 btn.addEventListener('click',(e) => {
   let request = new XMLHttpRequest()
-  request.open('post','http://jack.com:8002/xxx')
+  request.open('post','/xxx')
   request.send()
   request.onreadystatechange = ()=>{
     if(request.readyState === 4){

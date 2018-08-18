@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register</title>
+  <style>
+    *{margin:0;padding:0;}
+    body{height:100vh;display:flex;justify-content:center;align-items:center;}
+    .form-wrapper{ padding:20px; text-align:center; border:1px solid #ddd;}
+    .form-wrapper .line{ width:240px; margin:20px 10px; height:20px; position:relative; }
+    .form-wrapper .line > label{ position:absolute; left:0; width:28%; }
+    .form-wrapper .line > input{ position:absolute; right:0; }
+    .form-wrapper .line > .error{ position:absolute; top:100%; right: 0; display:inline-block; width: 69%; height: 18px; font-size:12px; color:red; text-align: left; }
+    .form-wrapper input[name="submit"]{height:30px;width:100px;}
+  </style>
+</head>
+<body>
+  <div class="form-wrapper">
+    <h1>LOGIN</h1>
+    <form id="login-form">
+      <div class="line">
+        <label>邮箱</label>
+        <input type="" name="email">
+        <span class="error"></span>
+      </div>
+      <div class="line">
+        <label>密码</label>
+        <input type="password" name="password">
+        <span class="error"></span>
+      </div>
+      <input type="submit" name="submit" value="LOGIN">
+    </form>
+  </div>
+  <script src="./vendor/jquery-3.3.1.min.js"></script>
+  <script>
+    let $form = $('#login-form')
+    $form.on('submit',function(e){
+      e.preventDefault()
+      let hash = {}
+      let need = ['email', 'password']
+      need.forEach((name)=>{
+        let value = $form.find(`[name=${name}]`).val()
+        hash[name] = value
+      })
+      $form.find('.error').each((index, span)=>{
+        $(span).text('')
+      })
+      if(hash['email'] === ''){
+        $form.find('[name="email"]').siblings('.error')
+          .text('填邮箱呀同学')
+        return
+      }
+      if(hash['password'] === ''){
+        $form.find('[name="password"]').siblings('.error')
+          .text('填密码呀同学')
+        return
+      }
+      $.post('/login', hash)
+        .then((response)=>{
+          console.log(response)
+        }, (request)=>{
+          let {errors} = request.responseJSON
+          console.log(errors)
+          if(errors && errors === 'fail'){
+            $form.find('[name="password"]').siblings('.error')
+              .text('邮箱或密码错误')
+          }
+        })
+    })
+  </script>
+
+</body>
+</html>
