@@ -31,7 +31,10 @@ if(!port){
   if(path === '/'){
     var string = fs.readFileSync('./index.html','utf-8')
     /************ 关于cookie **************/
-    let cookies =  request.headers.cookie.split('; ') // ['email=1@', 'a=1', 'b=2']
+    let cookies = ''
+    if(request.headers.cookie){
+      cookies =  request.headers.cookie.split('; ') // ['email=1@', 'a=1', 'b=2']
+    }
     let hash = {}
     for(let i =0;i<cookies.length; i++){
       let parts = cookies[i].split('=')
@@ -52,7 +55,7 @@ if(!port){
     if(foundUser){
       string = string.replace('__username__', foundUser.email)
     }else{
-      string = string.replace('__username__', '不知道')
+      string = string.replace('__username__', 'N/A')
     }
     /************ 关于cookie **************/
     response.setHeader('Content-Type','text/html;charset=utf-8')

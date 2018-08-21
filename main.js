@@ -18,3 +18,9 @@ btn.addEventListener('click',(e) => {
     }
   }
 })
+login.addEventListener('click',(e) => {
+  window.location.href = '/login'
+})
+register.addEventListener('click',(e) => {
+  window.location.href = '/register'
+})

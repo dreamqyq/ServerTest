@@ -19,4 +19,8 @@ main > .content{
   height:200px;
   border:1px solid blue;
 }
-
+button{
+  width:100px;
+  height:30px;
+  margin:20px 0;
+}
